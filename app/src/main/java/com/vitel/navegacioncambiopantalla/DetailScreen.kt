@@ -14,18 +14,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import com.vitel.navegacioncambiopantalla.core.navigation.Settingsinfo
 
 @Composable
-fun HomeScreen(navigateToDetail: (String) -> Unit){
-    var text by remember { mutableStateOf("") }
+fun DetailScreen(name:String, navigateToSettings: (Settingsinfo) -> Unit,navigateBack: () -> Unit){
+
     Column (modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = "HOME SCREEN", fontSize = 25.sp)
+        Text(text = "DETAIL SCREEN $name", fontSize = 25.sp)
         Spacer(modifier = Modifier.weight(1f))
-        TextField(value = text, onValueChange = {text = it})
+        Button(onClick = {
+            val settingsinfo = Settingsinfo(
+                name = "jose",
+                id = 1,
+                darkmode = true,
+                suscribete = true)
+            navigateToSettings(settingsinfo)}) {
+            Text(text = "Navegar a ajustes")
+        }
         Spacer(modifier = Modifier.weight(1f))
-        Button(onClick = {navigateToDetail(text) }) {
-            Text(text = "Navegar al detalle")
+        Button(onClick = { navigateBack()}) {
+            Text(text = "Logout")
         }
         Spacer(modifier = Modifier.weight(1f))
     }
